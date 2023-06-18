@@ -1,0 +1,311 @@
+Algoritmo "semnome"
+
+Var
+   // auxiliares
+   opc:inteiro
+   i:inteiro
+   ok:caractere
+   //pipipopo
+   k: inteiro
+   sekartloc, modelokart:vetor[1..15] de caractere
+   valorlockart:vetor[1..15] de real
+   qtdvezlockart:vetor[1..15] de inteiro
+   faturamentodia: real
+   //AAAAAAAAA
+   secircuito: logico
+   valorcircuito: real
+   valorcircuitoalg: real
+   sequeroalugarcircuito: logico
+   
+      procedimento menu
+      Inicio
+      limpatela
+      faturamentodia<-0
+      opc<-0
+      secircuito <- falso
+      sequeroalugarcircuito <- falso
+      escreval(" -= Locadora de Kart =-")
+      escreval("")
+      escreval("O que voce deseja?")
+      escreval("")
+      escreval("1. Cadastro de Karts")
+      escreval("2. Lista de karts")
+      escreval("3. Listar de karts locados")
+      escreval("4. Aluguel de kart")
+      escreval("5. Devolucao de kart")
+      escreval("6. Kart que mais gerou ganhos")
+      escreval("7. Receita e lucro do dia, considerando karts locados")
+      escreval("8. Locacao de circuito")
+      escreval("9. Atualizacao de data")
+      escreval("10. Sair do programa")
+      leia(opc)
+
+      se((opc<=0)ou(opc>=11)) entao
+         menu
+      fimse
+
+      escolha(opc)
+
+      caso 1
+       se (k>15) entao
+       limpatela
+          escreval("Nao e possivel cadastrar mais que 15 karts!")
+          menu
+       senao
+          cadastrokart
+       fimse
+
+      caso 2
+       se (k>=1) entao
+       listakartdisp
+       senao
+       limpatela
+       escreval("E preciso ter pelo menos um kart cadastrado.")
+       menu
+       fimse
+
+      caso 3
+       se(k>=1) entao
+       listakartloc
+       senao
+       limpatela
+       escreval("E preciso ter pelo menos um kart cadastrado.")
+       menu
+       fimse
+
+      caso 4
+       alugkart
+      caso 5
+       devolukart
+      caso 6
+       kartgg
+      caso 7
+      se (k>=1) entao
+       rld
+      senao
+      limpatela
+      escreval("E preciso ter pelo menos um kart cadastrado.")
+      leia(ok)
+       menu
+      fimse
+      caso 8
+       loccircuito
+      caso 9
+       atualizdt
+      caso 10
+       escreval("")
+       escreval("Obrigado por utilizar o nosso sistema!")
+       escreval("")
+
+       fimescolha
+       fimprocedimento
+
+        //caso 1
+        procedimento cadastrokart
+        inicio
+        limpatela
+        k <-k + 1
+        escreval("Insira os seguintes dados para o cadastro do kart.")
+        escreval("")
+        escreval("Qual o modelo do kart?")
+        leia(modelokart[k])
+        escreval("Qual o valor de locacao requerido?")
+        leia(valorlockart[k])
+        escreval("Quantas vezes o kart ja foi alugado?")
+        leia(qtdvezlockart[k])
+        escreval("O kart ja esta alugado? SIM ou NAO?")
+        leia(sekartloc[k])
+        limpatela
+        escreval("KART CADASTRADO COM SUCESSO EM NOSSO SISTEMA!")
+        menu
+        fimprocedimento
+
+        //caso 2
+        procedimento listakartdisp
+        inicio
+        limpatela
+        escreval("LISTA DE KARTS CADASTRADOS")
+        escreval("")
+           para i de 1 ate k passo 1 faca
+            escreval("Kart N",i)
+            escreval("Modelo: ",modelokart[i])
+            escreval("Valor de locacao: ",valorlockart[i])
+            escreval("Quantidade de locacoes: ", qtdvezlockart[i])
+            escreval("-")
+           fimpara
+           escreval("Aperte uma tecla para voltar ao menu!")
+           leia(ok)
+           menu
+        fimprocedimento
+
+        //caso 3
+        procedimento listakartloc
+        inicio
+        limpatela
+          escreval("LISTA DE KARTS JA ALUGADOS")
+          escreval("")
+          para i de 1 ate k passo 1 faca
+           se (sekartloc[i]="SIM") entao
+            escreval("Kart N",i)
+            escreval("Modelo: ",modelokart[i])
+            escreval("Valor de locacao: ",valorlockart[i])
+            escreval("Quantidade de locacoes: ", qtdvezlockart[i])
+            escreval("-")
+              fimse
+              fimpara
+           escreval("Aperte uma tecla para voltar ao menu!")
+           leia(ok)
+           menu
+        fimprocedimento
+
+       //caso 4
+       procedimento alugkart
+       var
+       queroalugar: caractere //variavel util apenas para esse procedimento
+       inicio
+       limpatela
+       escreval("Karts disponIveis para locacao:")
+       escreval("")
+       para i de 1 ate k passo 1 faca
+        se (sekartloc[i] = "NAO") entao
+            escreval("Kart N:", i)
+            escreval("Modelo: ",modelokart[i])
+            escreval("Valor de locacao: ",valorlockart[i])
+            escreval("Quantidade de locacoes: ", qtdvezlockart[i])
+            escreval("-")
+        fimse
+       fimpara
+       escreval ("")
+       escreval ("Qual o modelo do kart que deseja alugar?")
+       leia (queroalugar)
+       limpatela
+
+       para i de 1 ate k passo 1 faca
+            se (queroalugar=modelokart[i]) entao
+            sekartloc[i] <- "SIM"
+            faturamentodia<- faturamentodia + valorlockart[i]
+            qtdvezlockart[i]<- qtdvezlockart[i] + 1
+            escreval ("Kart alugado com sucesso!")
+            escreval ("")
+            fimse
+       fimpara
+       escreval ("Aperta uma tecla para voltar ao menu!")
+        leia(ok)
+        menu
+       fimprocedimento
+
+       //caso 5
+       procedimento devolukart
+       var
+       querodevolver: caractere // variavel util apenas para esse procedimento
+       inicio
+        limpatela
+          escreval("LISTA DE KARTS JA ALUGADOS")
+          escreval("")
+          para i de 1 ate k passo 1 faca
+           se (sekartloc[i]="SIM") entao
+            escreval("Kart N",i)
+            escreval("Modelo: ",modelokart[i])
+            escreval("Valor de locacao: ",valorlockart[i])
+            escreval("Quantidade de locacoes: ", qtdvezlockart[i])
+            escreval("-")
+           fimse
+          fimpara
+          escreval ("")
+          escreval ("Qual o modelo do kart que deseja devolver?")
+          leia(querodevolver)
+          limpatela
+
+          para i de 1 ate k passo 1 faca
+            se (querodevolver=modelokart[i]) entao
+             sekartloc[i] <- "NAO"
+             escreval ("Kart devolvido com sucesso!")
+             escreval ("")
+            fimse
+       fimpara
+
+       escreval ("Aperta uma tecla para voltar ao menu!")
+        leia(ok)
+        menu
+       fimprocedimento
+
+       //caso 6
+       procedimento kartgg
+       var
+       kartmaisgg:inteiro
+       inicio
+       kartmaisgg<-
+       para i de 1 ate k passo 1 faca
+        se (qtdvezlockart[i] > kartmaisgg) entao
+         kartmaisgg<- i
+        fimse
+       fimpara
+            escreval("O kart mais alugado do dia foi:")
+            escreval("Kart N",kartmaisgg)
+            escreval("Modelo: ",modelokart[kartmaisgg])
+            escreval("Valor de locacao: ",valorlockart[kartmaisgg])
+            escreval("Quantidade de locacoes: ", qtdvezlockart[kartmaisgg])
+            escreval("-")
+
+            escreval ("Aperta uma tecla para voltar ao menu!")
+            leia(ok)
+            menu
+       fimprocedimento
+
+       //caso7
+       procedimento rld
+       var
+       qtdvezlockart[i]:vetor[1..15] de real
+       receitakart[i]: vetor[1..15] de real
+       
+       inicio
+
+       para i de 1 ate k passo 1 faca
+       valorlockart[k]*
+       se (sekartloc[k]) entao
+       
+
+
+       
+
+      fimprocedimento
+      
+      //caso 8
+      inicio
+      procedimento loccircuito
+      var
+      SIM: caractere
+      NÃO: caractere
+      
+      Inicio
+      limpatela
+      se (secircuito=NAO) entao
+       Escreval("Você quer alugar o circuito?: ")
+       leia(sequeroalugarcircuito)
+        se sequeroalugar = SIM entao
+         Escreval ("Qual o valor do circuito? ")
+         leia(valorcircuito)
+        senao entao
+         escreval ("Aperta uma tecla para voltar ao menu!")
+         leia(ok)
+         menu
+      fimse
+      
+      senao entao
+      Escreval("O atual valor do circuito é:", valorcircuito)
+      Escreval("Quer seguir com o aluguel? ")
+      
+
+      menu
+
+     fimprocedimento
+
+     //CASO9
+     procedimento atualizdt
+     fimprocedimento
+     
+inicio
+
+menu
+
+fimalgoritmo
