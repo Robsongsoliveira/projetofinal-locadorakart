@@ -1,0 +1,465 @@
+Algoritmo "Locação Kart"
+
+// Grupo composto por: Arthur Xavier, Luca Malagoli,
+// Paulo Ricardo, Robson Gabriel e Tales Caixeta
+
+
+Var
+   // Variaveis auxiliares
+   opc:inteiro
+   i:inteiro
+   ok:caractere
+
+   // Variaveis para a locacao do kart
+
+   k: inteiro
+   sekartloc, modelokart:vetor[1..15] de caractere
+   valorlockart:vetor[1..15] de real
+   qtdvezlockart:vetor[1..15] de inteiro
+   valorcircuito: real
+   faturamentodia: real
+   lucrodia: real
+   data: inteiro
+   lucrocircuito: real
+   lucrokart: real
+   queroalugarcirc: caractere
+
+INICIO
+procedimento menu
+
+Inicio
+   limpatela
+
+   opc<-0
+
+   escreval(" -= Locadora de Kart =-")
+   escreval("")
+   escreval("O que voce deseja?")
+   escreval("")
+   escreval("1. Cadastro de Karts")
+   escreval("2. Lista de karts")
+   escreval("3. Listar de karts locados")
+   escreval("4. Aluguel de kart")
+   escreval("5. Devolucao de kart")
+   escreval("6. Kart que mais gerou ganhos")
+   escreval("7. Receita e lucro do dia")
+   escreval("8. Locacao de circuito")
+   escreval("9. Atualizacao de data")
+   escreval("10. Sair do programa")
+   leia(opc)
+
+   se((opc<=0)ou(opc>=11)) entao
+      menu
+   fimse
+
+   escolha(opc)
+
+   caso 1
+      se (k>15) entao
+         limpatela
+         escreval("Nao e possivel cadastrar mais que 15 karts!")
+         menu
+      senao
+         cadastrokart
+      fimse
+
+   caso 2
+      se (k>=1) entao
+         listakartdisp
+      senao
+         limpatela
+         escreval("E preciso ter pelo menos um kart cadastrado.")
+         Escreval("Aperte uma tecla para retornar ao menu.")
+         leia(ok)
+         menu
+      fimse
+
+   caso 3
+      se(k>=1) entao
+         listakartloc
+      senao entao
+         limpatela
+         escreval("E preciso ter pelo menos um kart locado.")
+         Escreval("Aperte uma tecla para retornar ao menu.")
+         leia(ok)
+         menu
+      fimse
+
+   caso 4
+      se(k>=1) entao
+         alugkart
+      senao entao
+         limpatela
+         Escreval("Ainda não tem nenhum Kart cadastrado")
+         Escreval("Aperte uma tecla para voltar ao menu")
+         leia(ok)
+         menu
+      fimse
+
+   caso 5
+      se(k>=1) entao
+         devolukart
+      senao entao
+         limpatela
+         Escreval("Ainda não tem nenhum Kart alugado")
+         Escreval("Aperte uma tecla para voltar ao menu")
+         leia(ok)
+         menu
+      fimse
+
+   caso 6
+      se (k>=1) entao
+         kartgg
+
+      senao
+         limpatela
+         escreval("E preciso ter pelo menos um kart cadastrado.")
+         leia(ok)
+         menu
+      fimse
+
+   caso 7
+      se (k>=1) entao
+         rld
+      senao entao
+         limpatela
+         Escreval("Ainda não tem nenhum Kart alugado")
+         Escreval("Aperte uma tecla para voltar ao menu")
+         leia(ok)
+         menu
+      fimse
+
+   caso 8
+      se(k>=1) entao
+         loccircuito
+      senao entao
+         limpatela
+         escreval("E preciso ter um kart alugado")
+         escreval("Aperte uma tecla para retornar ao menu")
+         leia(ok)
+         menu
+      fimse
+
+   caso 9
+      se(k>=1) entao
+         atualizdt
+      senao entao
+         limpatela
+         Escreval("Ainda nao ha nenhum Kart alugado.")
+         Escreval("Aperte uma tecla para voltar ao menu")
+         leia(ok)
+         menu
+      fimse
+
+   caso 10
+      escreval("")
+      escreval("Obrigado por utilizar o nosso sistema!")
+
+   fimescolha
+fimprocedimento
+
+
+//caso 1
+procedimento cadastrokart
+
+inicio
+   limpatela
+   k <-k + 1
+   escreval("Insira os seguintes dados para o cadastro do kart.")
+   escreval("")
+   escreval("Qual o modelo do kart?")
+   leia(modelokart[k])
+   escreval("Qual o valor de locacao requerido?")
+   leia(valorlockart[k])
+   escreval("Quantas vezes o kart ja foi alugado?")
+   leia(qtdvezlockart[k])
+
+   repita
+      escreval("O kart ja esta alugado? Responda com SIM ou NAO")
+      leia(sekartloc[k])
+   ate (sekartloc[k]="SIM") ou (sekartloc[k]="NAO")
+
+   limpatela
+   escreval("KART CADASTRADO COM SUCESSO EM NOSSO SISTEMA!")
+   escreval("")
+
+   escreval("Aperte uma tecla para voltar ao menu!")
+   leia(ok)
+   menu
+fimprocedimento
+
+
+//caso 2
+procedimento listakartdisp
+
+inicio
+   limpatela
+   escreval("LISTA DE KARTS CADASTRADOS")
+   escreval("")
+   para i de 1 ate k passo 1 faca
+      escreval("Kart N",i)
+      escreval("Modelo: ",modelokart[i])
+      escreval("Valor de locacao: ",valorlockart[i])
+      escreval("Quantidade de locacoes: ", qtdvezlockart[i])
+      escreval("-")
+   fimpara
+   escreval("Aperte uma tecla para voltar ao menu!")
+   leia(ok)
+   menu
+fimprocedimento
+
+//caso 3
+procedimento listakartloc
+
+inicio
+   limpatela
+   escreval("LISTA DE KARTS JA ALUGADOS")
+   escreval("")
+   para i de 1 ate k passo 1 faca
+      se (sekartloc[i]="SIM") entao
+         escreval("Kart N",i)
+         escreval("Modelo: ",modelokart[i])
+         escreval("Valor de locacao: ",valorlockart[i])
+         escreval("Quantidade de locacoes: ", qtdvezlockart[i])
+         escreval("-")
+      fimse
+   fimpara
+   escreval("Aperte uma tecla para voltar ao menu!")
+   leia(ok)
+   menu
+fimprocedimento
+
+//caso 4
+procedimento alugkart
+var
+
+   queroalugar: caractere // variavel util apenas para esse procedimento
+
+inicio
+   limpatela
+   escreval("KARTS DISPONIVEIS PARA A LOCACAO:")
+   escreval("")
+   para i de 1 ate k passo 1 faca
+      se (sekartloc[i] = "NAO") entao
+         escreval("Kart N:", i)
+         escreval("Modelo: ",modelokart[i])
+         escreval("Valor de locacao: ",valorlockart[i])
+         escreval("Quantidade de locacoes: ", qtdvezlockart[i])
+         escreval("-")
+      fimse
+   fimpara
+   escreval ("")
+   escreval ("Qual o modelo do kart que deseja alugar?")
+   leia (queroalugar)
+   limpatela
+
+   para i de 1 ate k passo 1 faca
+      se (queroalugar=modelokart[i]) entao
+
+         sekartloc[i] <- "SIM"
+         lucrokart<- valorlockart[i] * 0.3
+         lucrodia<- lucrodia + lucrokart
+         faturamentodia<- faturamentodia + valorlockart[i]
+         qtdvezlockart[i]<- qtdvezlockart[i] + 1
+
+         escreval ("KART ALUGADO COM SUCESSO!")
+         escreval ("")
+      fimse
+   fimpara
+
+
+   escreval("Aperte uma tecla para voltar ao menu!")
+   leia(ok)
+   menu
+fimprocedimento
+
+//caso 5
+procedimento devolukart
+var
+   querodevolver: caractere // variavel util apenas para esse procedimento
+
+inicio
+   limpatela
+   escreval("LISTA DE KARTS JA ALUGADOS")
+   escreval("")
+   para i de 1 ate k passo 1 faca
+      se (sekartloc[i]="SIM") entao
+         escreval("Kart N",i)
+         escreval("Modelo: ",modelokart[i])
+         escreval("Valor de locacao: ",valorlockart[i])
+         escreval("Quantidade de locacoes: ", qtdvezlockart[i])
+         escreval("-")
+      fimse
+   fimpara
+   escreval ("")
+   escreval ("Qual o modelo do kart que deseja devolver?")
+   leia(querodevolver)
+   limpatela
+
+   para i de 1 ate k passo 1 faca
+      se (querodevolver=modelokart[i]) entao
+
+         sekartloc[i] <- "NAO"
+
+         escreval ("KART DEVOLVIDO COM SUCESSO!")
+         escreval ("")
+      fimse
+   fimpara
+
+   escreval("Aperte uma tecla para voltar ao menu!")
+   leia(ok)
+   menu
+fimprocedimento
+
+//caso 6
+procedimento kartgg
+var
+   kartmaisgg:inteiro // variavel util apenas para esse procedimento
+
+inicio
+   limpatela
+   kartmaisgg<- 0
+
+   para i de 1 ate k passo 1 faca
+      se (qtdvezlockart[i] > kartmaisgg) entao
+         kartmaisgg <- i
+      fimse
+   fimpara
+   escreval("O kart mais alugado do dia foi:")
+   escreval ("")
+   escreval("Kart N", kartmaisgg)
+   escreval("Modelo: ",modelokart[kartmaisgg])
+   escreval("Valor de locacao: ",valorlockart[kartmaisgg])
+   escreval("Quantidade de locacoes: ", qtdvezlockart[kartmaisgg])
+   escreval("-")
+   escreval ("")
+
+   escreval("Aperte uma tecla para voltar ao menu!")
+   leia(ok)
+   menu
+fimprocedimento
+
+//caso7
+procedimento rld
+
+inicio
+   limpatela
+   escreval("O faturamento do dia ", data, ", é: ", faturamentodia, ".")
+   escreval("O lucro do dia ", data, ", considerando que karts geram 30%")
+   escreval("e circuitos 70% de lucro é: ", lucrodia, ".")
+   escreval("Sendo ", lucrocircuito, ", o lucro com circuito.")
+   escreval("Sendo ", lucrokart, ", o lucro com karts alugados.")
+   escreval("")
+
+   escreval("Aperte uma tecla para voltar ao menu!")
+   leia(ok)
+   menu
+fimprocedimento
+
+//caso 8
+procedimento loccircuito
+
+Inicio
+   limpatela
+
+   enquanto (valorcircuito=0) faca
+      escreval("ALUGUEL DE CIRCUITO")
+      escreval("Qual o valor de locacao do circuito?")
+      leia(valorcircuito)
+   fimenquanto
+   limpatela
+
+   repita
+      escreval("ALUGUEL DE CIRCUITO")
+      escreval("Para alugar o circuito, o valor atual é: ",valorcircuito,".")
+      escreval("Deseja alugar? Responda com SIM OU NAO")
+      leia(queroalugarcirc)
+   ate (queroalugarcirc="SIM") ou (queroalugarcirc="NAO")
+
+   limpatela
+
+   se (queroalugarcirc="SIM") entao
+
+      lucrocircuito <- valorcircuito * 0.7
+      lucrodia<- lucrodia + lucrocircuito
+      faturamentodia<- faturamentodia + valorcircuito
+
+      escreval("CIRCUITO ALUGADO COM SUCESSO!")
+   fimse
+
+   escreval ("")
+   escreval("Aperte uma tecla para voltar ao menu!")
+   leia(ok)
+   menu
+fimprocedimento
+
+
+//caso 8
+procedimento atualizdt
+var
+
+   prolongkart: caractere // variavel util apenas para esse procedimento
+
+
+Inicio
+   limpatela
+   escreval("Atualização de data")
+   escreval("A data atual é: ", data, ".")
+   escreval("Qual a data desejada para a atualização?")
+   leia(data)
+
+   valorcircuito <- 0
+   faturamentodia <- 0
+   lucrodia <- 0
+   lucrocircuito <- 0
+   lucrokart <- 0
+
+   limpatela
+   escreval("A nova data é: ", data, ".")
+   escreval("O circuito agora encontra-se disponível para a locacao")
+
+   queroalugarcirc <- "X"
+
+   escreval ("")
+   escreval("Deseja prolongar aluguel dos karts locados?")
+   escreval("")
+
+   para i de 1 ate k passo 1 faca
+      se (sekartloc[i]="SIM") entao
+         escreval("Kart N",i)
+         escreval("Modelo: ",modelokart[i])
+         escreval("Valor de locacao: ",valorlockart[i])
+         escreval("Quantidade de locacoes: ", qtdvezlockart[i])
+         escreval("-")
+
+         repita
+            escreval("Deseja prolongar o aluguel deste kart? Responda com SIM ou NAO.")
+            leia(prolongkart)
+         ate ((prolongkart="SIM") ou (prolongkart="NAO"))
+
+         se (prolongkart="SIM") entao
+            escreval("Aluguel prolongado com sucesso!")
+            lucrokart<- valorlockart[i] * 0.3
+            lucrodia<- lucrodia + lucrokart
+            faturamentodia<- faturamentodia + valorlockart[i]
+            qtdvezlockart[i]<- qtdvezlockart[i] + 1
+         fimse
+
+         se (prolongkart="NAO") entao
+            escreval("Kart devolvido com sucesso!")
+            sekartloc[i]<-"NAO"
+         fimse
+
+      fimse
+      limpatela
+   fimpara
+
+   escreval("Aperte uma tecla para voltar ao menu!")
+   leia(ok)
+   menu
+
+fimprocedimento
+
+menu
+
+fimalgoritmo
