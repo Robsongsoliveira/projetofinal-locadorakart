@@ -1,4 +1,6 @@
-# projetofinal-locadorakart
+# ALGORITMO
+LOCAÇÃO DE KART
+
 Projeto criado para trabalho 
 
 Inicialmente, devemos enfatizar o intuito desteprojeto, o qual foi desenvolvido abertamente para a venda do programa no mercado de locadoras de kart. Tal mercado, que vem crescendo no Brasil tendo em vista a grande demanda de indivíduos que observam o esporte como principal hobby. Dessa maneira, nós da equipe Invictus buscamos saciar possíveis necessidades de locadoras da área, com um algoritmo que cumpra todas as tarefas necessárias. 
