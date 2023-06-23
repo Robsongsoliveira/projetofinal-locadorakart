@@ -16,6 +16,8 @@ A seguir, encontra-se de forma listada e resumida as funcionalidades que compõe
 - Encerramento da aplicação 
 
 -= INVICTUS =-
+
 ![image](https://github.com/Robsongsoliveira/projetofinal-locadorakart/assets/135388925/2ccf5789-79dc-4965-9c98-c1372082f575)
+
 
 A equipe Invictus, compostas por jovens desenvolvedores de qualidade, busca revolucionar o mercado de programas de temáticas variadas, atendendo os cenários com maiores demandas do país a pronta-entrega, além de programas de procedência incomparável, produzidos mediante a pedidos dos clientes!
